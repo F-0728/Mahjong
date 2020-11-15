@@ -296,6 +296,49 @@ def ron(sc_h, sc_l):
   x -= (300 * tsumi + 1000 * ri_chi)
   return x
 
+def display(func, sub, list):
+  if func[0](sub) != None:
+    list.append(func[0](sub))
+  if func[1](sub) != None:
+    if func[0](sub) != "1飜30符":
+      list.append(func[1](sub))
+  if func[2](sub) != None:      
+    if func[1](sub) != "2飜20符":
+      list.append(func[2](sub))
+  if func[3](sub) != None:
+    if func[2](sub) != "3飜20符":
+      list.append(func[3](sub))
+  if func[3](sub) == None:
+    list.append(func[4](sub))
+
+def oya():
+  display(o_ts, sub_ts, list_ts)
+  display(o_ty, sub_ty, list_ty)
+  display(o_ro, sub_ro, list_ro)
+
+def kaburi():
+  display(k_ts_k, sub_ts, list_ts)
+  display(k_ty, sub_ty, list_ty)
+  display(k_ro, sub_ro, list_ro)
+
+def notk():
+  display(k_ts_n, sub_ts, list_ts)
+  display(k_ty, sub_ty, list_ty)
+  display(k_ro, sub_ro, list_ro)
+
+def output():
+  print("ツモ:", " or ".join(list_ts))
+  print("直撃:", " or ".join(list_ty))
+  print("ロン:", " or ".join(list_ro))
+
+o_ts = [oya_tsumo_1, oya_tsumo_2, oya_tsumo_3, oya_tsumo_4, oya_tsumo_ov5]
+o_ty = [oya_tyoku_1, oya_tyoku_2, oya_tyoku_3, oya_tyoku_4, oya_tyoku_ov5]
+o_ro = [oya_ron_1, oya_ron_2, oya_ron_3, oya_ron_4, oya_ron_ov5]
+k_ts_k = [ko_tsumo_kaburi_1, ko_tsumo_kaburi_2, ko_tsumo_kaburi_3, ko_tsumo_kaburi_4, ko_tsumo_kaburi_ov5]
+k_ts_n = [ko_tsumo_notk_1, ko_tsumo_notk_2, ko_tsumo_notk_3, ko_tsumo_notk_4, ko_tsumo_notk_ov5]
+k_ty = [ko_tyoku_1, ko_tyoku_2, ko_tyoku_3, ko_tyoku_4, ko_tyoku_ov5]
+k_ro = [ko_ron_1, ko_ron_2, ko_ron_3, ko_ron_4, ko_ron_ov5]
+
 print("""---------------
 点数: 自分以上の分をスペースで区切って半角入力
 親: 今何着目？
@@ -316,10 +359,14 @@ while 1:
   for i in range(len(scores)):
     sit[i + 1] = int(scores[i])
 
-  oya = int(input("親: "))
+  oya_ban = int(input("親: "))
   ri_chi = int(input("立直棒: "))
   tsumi = int(input("供託: "))
   
+  list_ts = []
+  list_ty = []
+  list_ro = []
+   
   print()
   
   if len(scores) == 1:
@@ -331,859 +378,102 @@ while 1:
     if sit[1] == sit[2]:
       print("トップだよ")
       sys.exit()
+    
     else:
       print("1位条件:")
       sub_ts = tsumo(sit[1], sit[2])
       sub_ty = tyoku(sit[1], sit[2])
       sub_ro = ron(sit[1], sit[2])
-      list_ts = []
-      list_ty = []
-      list_ro = []
-      if oya == 1:
-        if ko_tsumo_kaburi_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_kaburi_1(sub_ts))
-        if ko_tsumo_kaburi_2(sub_ts) != None:
-          if ko_tsumo_kaburi_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_kaburi_2(sub_ts))
-        if ko_tsumo_kaburi_3(sub_ts) != None:      
-          if ko_tsumo_kaburi_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_kaburi_3(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) != None:
-            if ko_tsumo_kaburi_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_kaburi_4(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_kaburi_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
-        
-      elif oya == 2:
-        if oya_tsumo_1(sub_ts) != None:
-          list_ts.append(oya_tsumo_1(sub_ts))
-        if oya_tsumo_2(sub_ts) != None:
-          if oya_tsumo_1(sub_ts) != "1飜30符":
-            list_ts.append(oya_tsumo_2(sub_ts))
-        if oya_tsumo_3(sub_ts) != None:      
-          if oya_tsumo_2(sub_ts) != "2飜20符":
-            list_ts.append(oya_tsumo_3(sub_ts))
-        if oya_tsumo_4(sub_ts) != None:
-          if oya_tsumo_3(sub_ts) != "3飜20符":
-            list_ts.append(oya_tsumo_4(sub_ts))
-        if oya_tsumo_4(sub_ts) == None:
-          list_ts.append(oya_tsumo_ov5(sub_ts))
-        
-        if oya_tyoku_1(sub_ty) != None:
-          list_ty.append(oya_tyoku_1(sub_ty))
-        if oya_tyoku_2(sub_ty) != None:
-          if oya_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(oya_tyoku_2(sub_ty))
-        if oya_tyoku_3(sub_ty) != None:      
-          if oya_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(oya_tyoku_3(sub_ty))
-        if oya_tyoku_4(sub_ty) != None:
-          if oya_tyoku_3(sub_ty) != "3飜20符":
-            list_ty.append(oya_tyoku_4(sub_ty))
-        if oya_tyoku_4(sub_ty) == None:
-          list_ty.append(oya_tyoku_ov5(sub_ty))
-        
-        if oya_ron_1(sub_ro) != None:
-          list_ro.append(oya_ron_1(sub_ro))
-        if oya_ron_2(sub_ro) != None:
-          if oya_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(oya_ron_2(sub_ro))
-        if oya_ron_3(sub_ro) != None:      
-          if oya_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(oya_ron_3(sub_ro))
-        if oya_ron_4(sub_ro) != None:
-          if oya_ron_3(sub_ro) != "3飜20符":
-            list_ro.append(oya_ron_4(sub_ro))
-        if oya_ron_4(sub_ro) == None:
-          list_ro.append(oya_ron_ov5(sub_ro))
-     
+      
+      if oya_ban == 1:
+        kaburi() 
+      elif oya_ban == 2:
+        oya()
       else:
-        if ko_tsumo_notk_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_notk_1(sub_ts))
-        if ko_tsumo_notk_2(sub_ts) != None:
-          if ko_tsumo_notk_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_notk_2(sub_ts))
-        if ko_tsumo_notk_3(sub_ts) != None:      
-          if ko_tsumo_notk_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_notk_3(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) != None:
-            if ko_tsumo_notk_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_notk_4(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_notk_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
-
-      print("ツモ:", " or ".join(list_ts))
-      print("直撃:", " or ".join(list_ty))
-      print("ロン:", " or ".join(list_ro))
+        notk()
+      output()
 
 
   if len(scores) == 3:
     if sit[1] == sit[3]:
       print("トップだよ")
       sys.exit()
+  
     else:
       print("1位条件:")
       sub_ts = tsumo(sit[1], sit[3])
       sub_ty = tyoku(sit[1], sit[3])
       sub_ro = ron(sit[1], sit[3])
-      list_ts = []
-      list_ty = []
-      list_ro = []
-      if oya == 1:
-        if ko_tsumo_kaburi_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_kaburi_1(sub_ts))
-        if ko_tsumo_kaburi_2(sub_ts) != None:
-          if ko_tsumo_kaburi_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_kaburi_2(sub_ts))
-        if ko_tsumo_kaburi_3(sub_ts) != None:      
-          if ko_tsumo_kaburi_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_kaburi_3(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) != None:
-            if ko_tsumo_kaburi_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_kaburi_4(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_kaburi_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
       
-      elif oya == 3:
-        if oya_tsumo_1(sub_ts) != None:
-          list_ts.append(oya_tsumo_1(sub_ts))
-        if oya_tsumo_2(sub_ts) != None:
-          if oya_tsumo_1(sub_ts) != "1飜30符":
-            list_ts.append(oya_tsumo_2(sub_ts))
-        if oya_tsumo_3(sub_ts) != None:      
-          if oya_tsumo_2(sub_ts) != "2飜20符":
-            list_ts.append(oya_tsumo_3(sub_ts))
-        if oya_tsumo_4(sub_ts) != None:
-          if oya_tsumo_3(sub_ts) != "3飜20符":
-            list_ts.append(oya_tsumo_4(sub_ts))
-        if oya_tsumo_4(sub_ts) == None:
-          list_ts.append(oya_tsumo_ov5(sub_ts))
-        
-        if oya_tyoku_1(sub_ty) != None:
-          list_ty.append(oya_tyoku_1(sub_ty))
-        if oya_tyoku_2(sub_ty) != None:
-          if oya_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(oya_tyoku_2(sub_ty))
-        if oya_tyoku_3(sub_ty) != None:      
-          if oya_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(oya_tyoku_3(sub_ty))
-        if oya_tyoku_4(sub_ty) != None:
-          if oya_tyoku_3(sub_ty) != "3飜20符":
-            list_ty.append(oya_tyoku_4(sub_ty))
-        if oya_tyoku_4(sub_ty) == None:
-          list_ty.append(oya_tyoku_ov5(sub_ty))
-        
-        if oya_ron_1(sub_ro) != None:
-          list_ro.append(oya_ron_1(sub_ro))
-        if oya_ron_2(sub_ro) != None:
-          if oya_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(oya_ron_2(sub_ro))
-        if oya_ron_3(sub_ro) != None:      
-          if oya_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(oya_ron_3(sub_ro))
-        if oya_ron_4(sub_ro) != None:
-          if oya_ron_3(sub_ro) != "3飜20符":
-            list_ro.append(oya_ron_4(sub_ro))
-        if oya_ron_4(sub_ro) == None:
-          list_ro.append(oya_ron_ov5(sub_ro))
-      
+      if oya_ban == 1:
+        kaburi()
+      elif oya_ban == 3:
+        oya()
       else:
-        if ko_tsumo_notk_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_notk_1(sub_ts))
-        if ko_tsumo_notk_2(sub_ts) != None:
-          if ko_tsumo_notk_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_notk_2(sub_ts))
-        if ko_tsumo_notk_3(sub_ts) != None:      
-          if ko_tsumo_notk_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_notk_3(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) != None:
-            if ko_tsumo_notk_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_notk_4(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_notk_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
-
-      print("ツモ:", " or ".join(list_ts))
-      print("直撃:", " or ".join(list_ty))
-      print("ロン:", " or ".join(list_ro))
+        notk()     
+      output()
 
 
       print("2位条件:")
       sub_ts = tsumo(sit[2], sit[3])
       sub_ty = tyoku(sit[2], sit[3])
       sub_ro = ron(sit[2], sit[3])
-      list_ts = []
-      list_ty = []
-      list_ro = []
-      if oya == 2:
-        if ko_tsumo_kaburi_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_kaburi_1(sub_ts))
-        if ko_tsumo_kaburi_2(sub_ts) != None:
-          if ko_tsumo_kaburi_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_kaburi_2(sub_ts))
-        if ko_tsumo_kaburi_3(sub_ts) != None:      
-          if ko_tsumo_kaburi_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_kaburi_3(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) != None:
-            if ko_tsumo_kaburi_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_kaburi_4(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_kaburi_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
-      
-      elif oya == 3:
-        if oya_tsumo_1(sub_ts) != None:
-          list_ts.append(oya_tsumo_1(sub_ts))
-        if oya_tsumo_2(sub_ts) != None:
-          if oya_tsumo_1(sub_ts) != "1飜30符":
-            list_ts.append(oya_tsumo_2(sub_ts))
-        if oya_tsumo_3(sub_ts) != None:      
-          if oya_tsumo_2(sub_ts) != "2飜20符":
-            list_ts.append(oya_tsumo_3(sub_ts))
-        if oya_tsumo_4(sub_ts) != None:
-          if oya_tsumo_3(sub_ts) != "3飜20符":
-            list_ts.append(oya_tsumo_4(sub_ts))
-        if oya_tsumo_4(sub_ts) == None:
-          list_ts.append(oya_tsumo_ov5(sub_ts))
-        
-        if oya_tyoku_1(sub_ty) != None:
-          list_ty.append(oya_tyoku_1(sub_ty))
-        if oya_tyoku_2(sub_ty) != None:
-          if oya_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(oya_tyoku_2(sub_ty))
-        if oya_tyoku_3(sub_ty) != None:      
-          if oya_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(oya_tyoku_3(sub_ty))
-        if oya_tyoku_4(sub_ty) != None:
-          if oya_tyoku_3(sub_ty) != "3飜20符":
-            list_ty.append(oya_tyoku_4(sub_ty))
-        if oya_tyoku_4(sub_ty) == None:
-          list_ty.append(oya_tyoku_ov5(sub_ty))
-        
-        if oya_ron_1(sub_ro) != None:
-          list_ro.append(oya_ron_1(sub_ro))
-        if oya_ron_2(sub_ro) != None:
-          if oya_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(oya_ron_2(sub_ro))
-        if oya_ron_3(sub_ro) != None:      
-          if oya_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(oya_ron_3(sub_ro))
-        if oya_ron_4(sub_ro) != None:
-          if oya_ron_3(sub_ro) != "3飜20符":
-            list_ro.append(oya_ron_4(sub_ro))
-        if oya_ron_4(sub_ro) == None:
-          list_ro.append(oya_ron_ov5(sub_ro))
-      
-      else:
-        if ko_tsumo_notk_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_notk_1(sub_ts))
-        if ko_tsumo_notk_2(sub_ts) != None:
-          if ko_tsumo_notk_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_notk_2(sub_ts))
-        if ko_tsumo_notk_3(sub_ts) != None:      
-          if ko_tsumo_notk_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_notk_3(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) != None:
-            if ko_tsumo_notk_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_notk_4(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_notk_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
 
-      print("ツモ:", " or ".join(list_ts))
-      print("直撃:", " or ".join(list_ty))
-      print("ロン:", " or ".join(list_ro))
+      if oya_ban == 2:
+        kaburi()
+      elif oya_ban == 3:
+        oya()
+      else:
+        notk()
+      output()
+
 
   if len(scores) == 4:
     if sit[1] == sit[4]:
       print("トップだよ")
       sys.exit()
+  
     else:
       print("1位条件:")
       sub_ts = tsumo(sit[1], sit[4])
       sub_ty = tyoku(sit[1], sit[4])
       sub_ro = ron(sit[1], sit[4])
-      list_ts = []
-      list_ty = []
-      list_ro = []
-      if oya == 1:
-        if ko_tsumo_kaburi_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_kaburi_1(sub_ts))
-        if ko_tsumo_kaburi_2(sub_ts) != None:
-          if ko_tsumo_kaburi_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_kaburi_2(sub_ts))
-        if ko_tsumo_kaburi_3(sub_ts) != None:      
-          if ko_tsumo_kaburi_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_kaburi_3(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) != None:
-            if ko_tsumo_kaburi_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_kaburi_4(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_kaburi_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
       
-      elif oya == 4:
-        if oya_tsumo_1(sub_ts) != None:
-          list_ts.append(oya_tsumo_1(sub_ts))
-        if oya_tsumo_2(sub_ts) != None:
-          if oya_tsumo_1(sub_ts) != "1飜30符":
-            list_ts.append(oya_tsumo_2(sub_ts))
-        if oya_tsumo_3(sub_ts) != None:      
-          if oya_tsumo_2(sub_ts) != "2飜20符":
-            list_ts.append(oya_tsumo_3(sub_ts))
-        if oya_tsumo_4(sub_ts) != None:
-          if oya_tsumo_3(sub_ts) != "3飜20符":
-            list_ts.append(oya_tsumo_4(sub_ts))
-        if oya_tsumo_4(sub_ts) == None:
-          list_ts.append(oya_tsumo_ov5(sub_ts))
-        
-        if oya_tyoku_1(sub_ty) != None:
-          list_ty.append(oya_tyoku_1(sub_ty))
-        if oya_tyoku_2(sub_ty) != None:
-          if oya_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(oya_tyoku_2(sub_ty))
-        if oya_tyoku_3(sub_ty) != None:      
-          if oya_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(oya_tyoku_3(sub_ty))
-        if oya_tyoku_4(sub_ty) != None:
-          if oya_tyoku_3(sub_ty) != "3飜20符":
-            list_ty.append(oya_tyoku_4(sub_ty))
-        if oya_tyoku_4(sub_ty) == None:
-          list_ty.append(oya_tyoku_ov5(sub_ty))
-        
-        if oya_ron_1(sub_ro) != None:
-          list_ro.append(oya_ron_1(sub_ro))
-        if oya_ron_2(sub_ro) != None:
-          if oya_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(oya_ron_2(sub_ro))
-        if oya_ron_3(sub_ro) != None:      
-          if oya_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(oya_ron_3(sub_ro))
-        if oya_ron_4(sub_ro) != None:
-          if oya_ron_3(sub_ro) != "3飜20符":
-            list_ro.append(oya_ron_4(sub_ro))
-        if oya_ron_4(sub_ro) == None:
-          list_ro.append(oya_ron_ov5(sub_ro))
-      
+      if oya_ban == 1:
+        kaburi()      
+      elif oya_ban == 4:
+        oya()
       else:
-        if ko_tsumo_notk_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_notk_1(sub_ts))
-        if ko_tsumo_notk_2(sub_ts) != None:
-          if ko_tsumo_notk_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_notk_2(sub_ts))
-        if ko_tsumo_notk_3(sub_ts) != None:      
-          if ko_tsumo_notk_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_notk_3(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) != None:
-            if ko_tsumo_notk_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_notk_4(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_notk_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
-
-      print("ツモ:", " or ".join(list_ts))
-      print("直撃:", " or ".join(list_ty))
-      print("ロン:", " or ".join(list_ro))
+        notk()      
+      output()
 
 
       print("2位条件:")
       sub_ts = tsumo(sit[2], sit[4])
       sub_ty = tyoku(sit[2], sit[4])
       sub_ro = ron(sit[2], sit[4])
-      list_ts = []
-      list_ty = []
-      list_ro = []
-      if oya == 2:
-        if ko_tsumo_kaburi_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_kaburi_1(sub_ts))
-        if ko_tsumo_kaburi_2(sub_ts) != None:
-          if ko_tsumo_kaburi_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_kaburi_2(sub_ts))
-        if ko_tsumo_kaburi_3(sub_ts) != None:      
-          if ko_tsumo_kaburi_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_kaburi_3(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) != None:
-            if ko_tsumo_kaburi_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_kaburi_4(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_kaburi_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
       
-      elif oya == 4:
-        if oya_tsumo_1(sub_ts) != None:
-          list_ts.append(oya_tsumo_1(sub_ts))
-        if oya_tsumo_2(sub_ts) != None:
-          if oya_tsumo_1(sub_ts) != "1飜30符":
-            list_ts.append(oya_tsumo_2(sub_ts))
-        if oya_tsumo_3(sub_ts) != None:      
-          if oya_tsumo_2(sub_ts) != "2飜20符":
-            list_ts.append(oya_tsumo_3(sub_ts))
-        if oya_tsumo_4(sub_ts) != None:
-          if oya_tsumo_3(sub_ts) != "3飜20符":
-            list_ts.append(oya_tsumo_4(sub_ts))
-        if oya_tsumo_4(sub_ts) == None:
-          list_ts.append(oya_tsumo_ov5(sub_ts))
-        
-        if oya_tyoku_1(sub_ty) != None:
-          list_ty.append(oya_tyoku_1(sub_ty))
-        if oya_tyoku_2(sub_ty) != None:
-          if oya_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(oya_tyoku_2(sub_ty))
-        if oya_tyoku_3(sub_ty) != None:      
-          if oya_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(oya_tyoku_3(sub_ty))
-        if oya_tyoku_4(sub_ty) != None:
-          if oya_tyoku_3(sub_ty) != "3飜20符":
-            list_ty.append(oya_tyoku_4(sub_ty))
-        if oya_tyoku_4(sub_ty) == None:
-          list_ty.append(oya_tyoku_ov5(sub_ty))
-        
-        if oya_ron_1(sub_ro) != None:
-          list_ro.append(oya_ron_1(sub_ro))
-        if oya_ron_2(sub_ro) != None:
-          if oya_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(oya_ron_2(sub_ro))
-        if oya_ron_3(sub_ro) != None:      
-          if oya_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(oya_ron_3(sub_ro))
-        if oya_ron_4(sub_ro) != None:
-          if oya_ron_3(sub_ro) != "3飜20符":
-            list_ro.append(oya_ron_4(sub_ro))
-        if oya_ron_4(sub_ro) == None:
-          list_ro.append(oya_ron_ov5(sub_ro))
-      
+      if oya_ban == 2:
+        kaburi() 
+      elif oya_ban == 4:
+        oya() 
       else:
-        if ko_tsumo_notk_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_notk_1(sub_ts))
-        if ko_tsumo_notk_2(sub_ts) != None:
-          if ko_tsumo_notk_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_notk_2(sub_ts))
-        if ko_tsumo_notk_3(sub_ts) != None:      
-          if ko_tsumo_notk_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_notk_3(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) != None:
-            if ko_tsumo_notk_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_notk_4(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_notk_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
+        notk()        
+      output()
 
-      print("ツモ:", " or ".join(list_ts))
-      print("直撃:", " or ".join(list_ty))
-      print("ロン:", " or ".join(list_ro)) 
 
       print("3位条件:")
       sub_ts = tsumo(sit[3], sit[4])
       sub_ty = tyoku(sit[3], sit[4])
       sub_ro = ron(sit[3], sit[4])
-      list_ts = []
-      list_ty = []
-      list_ro = []
-      if oya == 3:
-        if ko_tsumo_kaburi_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_kaburi_1(sub_ts))
-        if ko_tsumo_kaburi_2(sub_ts) != None:
-          if ko_tsumo_kaburi_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_kaburi_2(sub_ts))
-        if ko_tsumo_kaburi_3(sub_ts) != None:      
-          if ko_tsumo_kaburi_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_kaburi_3(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) != None:
-            if ko_tsumo_kaburi_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_kaburi_4(sub_ts))
-        if ko_tsumo_kaburi_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_kaburi_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
       
-      elif oya == 4:
-        if oya_tsumo_1(sub_ts) != None:
-          list_ts.append(oya_tsumo_1(sub_ts))
-        if oya_tsumo_2(sub_ts) != None:
-          if oya_tsumo_1(sub_ts) != "1飜30符":
-            list_ts.append(oya_tsumo_2(sub_ts))
-        if oya_tsumo_3(sub_ts) != None:      
-          if oya_tsumo_2(sub_ts) != "2飜20符":
-            list_ts.append(oya_tsumo_3(sub_ts))
-        if oya_tsumo_4(sub_ts) != None:
-          if oya_tsumo_3(sub_ts) != "3飜20符":
-            list_ts.append(oya_tsumo_4(sub_ts))
-        if oya_tsumo_4(sub_ts) == None:
-          list_ts.append(oya_tsumo_ov5(sub_ts))
-        
-        if oya_tyoku_1(sub_ty) != None:
-          list_ty.append(oya_tyoku_1(sub_ty))
-        if oya_tyoku_2(sub_ty) != None:
-          if oya_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(oya_tyoku_2(sub_ty))
-        if oya_tyoku_3(sub_ty) != None:      
-          if oya_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(oya_tyoku_3(sub_ty))
-        if oya_tyoku_4(sub_ty) != None:
-          if oya_tyoku_3(sub_ty) != "3飜20符":
-            list_ty.append(oya_tyoku_4(sub_ty))
-        if oya_tyoku_4(sub_ty) == None:
-          list_ty.append(oya_tyoku_ov5(sub_ty))
-        
-        if oya_ron_1(sub_ro) != None:
-          list_ro.append(oya_ron_1(sub_ro))
-        if oya_ron_2(sub_ro) != None:
-          if oya_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(oya_ron_2(sub_ro))
-        if oya_ron_3(sub_ro) != None:      
-          if oya_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(oya_ron_3(sub_ro))
-        if oya_ron_4(sub_ro) != None:
-          if oya_ron_3(sub_ro) != "3飜20符":
-            list_ro.append(oya_ron_4(sub_ro))
-        if oya_ron_4(sub_ro) == None:
-          list_ro.append(oya_ron_ov5(sub_ro))
-      
+      if oya_ban == 3:
+        kaburi()
+      elif oya_ban == 4:
+        oya()
       else:
-        if ko_tsumo_notk_1(sub_ts) != None:
-          list_ts.append(ko_tsumo_notk_1(sub_ts))
-        if ko_tsumo_notk_2(sub_ts) != None:
-          if ko_tsumo_notk_1(sub_ts) != "1飜30符":
-            list_ts.append(ko_tsumo_notk_2(sub_ts))
-        if ko_tsumo_notk_3(sub_ts) != None:      
-          if ko_tsumo_notk_2(sub_ts) != "2飜20符":
-            list_ts.append(ko_tsumo_notk_3(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) != None:
-            if ko_tsumo_notk_3(sub_ts) != "3飜20符":
-              list_ts.append(ko_tsumo_notk_4(sub_ts))
-        if ko_tsumo_notk_4(sub_ts) == None:
-          list_ts.append(ko_tsumo_notk_ov5(sub_ts))
-        
-        if ko_tyoku_1(sub_ty) != None:
-          list_ty.append(ko_tyoku_1(sub_ty))
-        if ko_tyoku_2(sub_ty) != None:
-          if ko_tyoku_1(sub_ty) != "1飜30符":
-            list_ty.append(ko_tyoku_2(sub_ty))
-        if ko_tyoku_3(sub_ty) != None:      
-          if ko_tyoku_2(sub_ty) != "2飜20符":
-            list_ty.append(ko_tyoku_3(sub_ty))
-        if ko_tyoku_4(sub_ty) != None:
-            if ko_tyoku_3(sub_ty) != "3飜20符":
-              list_ty.append(ko_tyoku_4(sub_ty))
-        if ko_tyoku_4(sub_ty) == None:
-          list_ty.append(ko_tyoku_ov5(sub_ty))
-        
-        if ko_ron_1(sub_ro) != None:
-          list_ro.append(ko_ron_1(sub_ro))
-        if ko_ron_2(sub_ro) != None:
-          if ko_ron_1(sub_ro) != "1飜30符":
-            list_ro.append(ko_ron_2(sub_ro))
-        if ko_ron_3(sub_ro) != None:      
-          if ko_ron_2(sub_ro) != "2飜20符":
-            list_ro.append(ko_ron_3(sub_ro))
-        if ko_ron_4(sub_ro) != None:
-            if ko_ron_3(sub_ro) != "3飜20符":
-              list_ro.append(ko_ron_4(sub_ro))
-        if ko_ron_4(sub_ro) == None:
-          list_ro.append(ko_ron_ov5(sub_ro))
-
-      print("ツモ:", " or ".join(list_ts))
-      print("直撃:", " or ".join(list_ty))
-      print("ロン:", " or ".join(list_ro)) 
+        notk()
+      output() 
 
   print("""
 """)
