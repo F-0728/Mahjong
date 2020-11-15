@@ -1,4 +1,4 @@
 # Mahjong
 Personal Mahjong records and codes
 
-MDP…latest>>>ver.2.0
+latest MDP>>>ver.2.1
