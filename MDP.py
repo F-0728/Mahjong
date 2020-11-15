@@ -340,6 +340,8 @@ k_ty = [ko_tyoku_1, ko_tyoku_2, ko_tyoku_3, ko_tyoku_4, ko_tyoku_ov5]
 k_ro = [ko_ron_1, ko_ron_2, ko_ron_3, ko_ron_4, ko_ron_ov5]
 
 print("""---------------
+MDP ver.2.1
+--------------
 点数: 自分以上の分をスペースで区切って半角入力
 親: 今何着目？
 立直棒: 何本ある？
