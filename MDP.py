@@ -6,7 +6,8 @@ def oya_tsumo_1(sc):
   fu = ["30", "40", "50", "60", "70"]
   for i in range(5):
     if tsu_p[i] >= sc:
-      return "{}(1飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(1飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_tsumo_2(sc):
   base = [2100, 2400, 3000, 3900, 4800, 6000, 6900]
@@ -14,7 +15,8 @@ def oya_tsumo_2(sc):
   fu = ["20", "25", "30", "40", "50", "60", "70"]
   for i in range(7):
     if tsu_p[i] >= sc:
-      return "{}(2飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(2飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_tsumo_3(sc):
   base = [3900, 4800, 6000, 7800, 9600, 11700]
@@ -22,15 +24,17 @@ def oya_tsumo_3(sc):
   fu = ["20", "25", "30", "40", "50", "60"]
   for i in range(6):
     if tsu_p[i] >= sc:
-      return "{}(3飜{}符)".format(base[i], fu[i])
-  
+      return fu[i], "{}(3飜{}符)".format(base[i], fu[i])
+  return 0, 0
+ 
 def oya_tsumo_4(sc):
   base = [7800, 9600, 11700]
   tsu_p = [scs * 4 / 3 for scs in base]
   fu = ["20", "25", "30"]
   for i in range(3):
     if tsu_p[i] >= sc:
-      return "{}(4飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(4飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_tsumo_ov5(sc):
   base = [12000, 18000, 24000, 36000, 48000, 96000]
@@ -46,7 +50,8 @@ def oya_tyoku_1(sc):
   fu = ["30", "40", "50", "60", "70"]
   for i in range(5):
     if tyo_p[i] >= sc:
-      return "{}(1飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(1飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_tyoku_2(sc):
   base = [2000, 2400, 2900, 3900, 4800, 5800, 6800]
@@ -54,7 +59,8 @@ def oya_tyoku_2(sc):
   fu = ["20", "25", "30", "40", "50", "60", "70"]
   for i in range(7):
     if tyo_p[i] >= sc:
-      return "{}(2飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(2飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_tyoku_3(sc):
   base = [3900, 4800, 5800, 7700, 9600, 11600]
@@ -62,7 +68,8 @@ def oya_tyoku_3(sc):
   fu = ["20", "25", "30", "40", "50", "60"]
   for i in range(6):
     if tyo_p[i] >= sc:
-      return "{}(3飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(3飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_tyoku_4(sc):
   base = [7700, 9600, 11600]
@@ -70,7 +77,8 @@ def oya_tyoku_4(sc):
   fu = ["20", "25", "30"]
   for i in range(3):
     if tyo_p[i] >= sc:
-      return "{}(4飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(4飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_tyoku_ov5(sc):
   base = [12000, 18000, 24000, 36000, 48000, 96000]
@@ -85,28 +93,32 @@ def oya_ron_1(sc):
   fu = ["30", "40", "50", "60", "70"]
   for i in range(5):
     if base[i] >= sc:
-      return "{}(1飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(1飜{}符)".format(base[i], fu[i])
+  return 0, 0 
 
 def oya_ron_2(sc):
   base = [2000, 2400, 2900, 3900, 4800, 5800, 6800]
   fu = ["20", "25", "30", "40", "50", "60", "70"]
   for i in range(7):
     if base[i] >= sc:
-      return "{}(2飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(2飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_ron_3(sc):
   base = [3900, 4800, 5800, 7700, 9600, 11600]
   fu = ["20", "25", "30", "40", "50", "60"]
   for i in range(6):
     if base[i] >= sc:
-      return "{}(3飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(3飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_ron_4(sc):
   base = [7700, 9600, 11600]
   fu = ["20", "25", "30"]
   for i in range(3):
     if base[i] >= sc:
-      return "{}(4飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(4飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def oya_ron_ov5(sc):
   base = [12000, 18000, 24000, 36000, 48000, 96000]
@@ -122,7 +134,8 @@ def ko_tsumo_kaburi_1(sc):
   fu = ["30", "40", "50", "60", "70"]
   for i in range(5):
     if tsu_p[i] >= sc:
-      return "{}(1飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(1飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tsumo_kaburi_2(sc):
   base = [1500, 1600, 2000, 2700, 3200, 4000, 4700]
@@ -131,7 +144,8 @@ def ko_tsumo_kaburi_2(sc):
   fu = ["20", "25", "30", "40", "50", "60", "70"]
   for i in range(7):
     if tsu_p[i] >= sc:
-      return "{}(2飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(2飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tsumo_kaburi_3(sc):
   base = [2700, 3200, 4000, 5200, 6400, 7900]
@@ -140,7 +154,8 @@ def ko_tsumo_kaburi_3(sc):
   fu = ["20", "25", "30", "40", "50", "60"]
   for i in range(6):
     if tsu_p[i] >= sc:
-      return "{}(3飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(3飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tsumo_kaburi_4(sc):
   base = [5200, 6400, 7900]
@@ -149,7 +164,8 @@ def ko_tsumo_kaburi_4(sc):
   fu = ["20", "25", "30"]
   for i in range(3):
     if tsu_p[i] >= sc:
-      return "{}(4飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(4飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tsumo_kaburi_ov5(sc):
   base = [8000, 12000, 16000, 24000, 32000, 64000]
@@ -166,7 +182,8 @@ def ko_tsumo_notk_1(sc):
   fu = ["30", "40", "50", "60", "70"]
   for i in range(5):
     if tsu_p[i] >= sc:
-      return "{}(1飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(1飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tsumo_notk_2(sc):
   base = [1500, 1600, 2000, 2700, 3200, 4000, 4700]
@@ -175,7 +192,8 @@ def ko_tsumo_notk_2(sc):
   fu = ["20", "25", "30", "40", "50", "60", "70"]
   for i in range(7):
     if tsu_p[i] >= sc:
-      return "{}(2飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(2飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tsumo_notk_3(sc):
   base = [2700, 3200, 4000, 5200, 6400, 7900]
@@ -184,7 +202,8 @@ def ko_tsumo_notk_3(sc):
   fu = ["20", "25", "30", "40", "50", "60"]
   for i in range(6):
     if tsu_p[i] >= sc:
-      return "{}(3飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(3飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tsumo_notk_4(sc):
   base = [5200, 6400, 7900]
@@ -193,7 +212,8 @@ def ko_tsumo_notk_4(sc):
   fu = ["20", "25", "30"]
   for i in range(3):
     if tsu_p[i] >= sc:
-      return "{}(4飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(4飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tsumo_notk_ov5(sc):
   base = [8000, 12000, 16000, 24000, 32000, 64000]
@@ -209,7 +229,8 @@ def ko_tyoku_1(sc):
   fu = ["30", "40", "50", "60", "70"]
   for i in range(5):
     if tsu_p[i] >= sc:
-      return "{}(1飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(1飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tyoku_2(sc):
   base = [1300, 1600, 2000, 2600, 3200, 3900, 4500]
@@ -217,7 +238,8 @@ def ko_tyoku_2(sc):
   fu = ["20", "25", "30", "40", "50", "60", "70"]
   for i in range(7):
     if tsu_p[i] >= sc:
-      return "{}(2飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(2飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tyoku_3(sc):
   base = [2600, 3200, 3900, 5200, 6400, 7700]
@@ -225,15 +247,17 @@ def ko_tyoku_3(sc):
   fu = ["20", "25", "30", "40", "50", "60"]
   for i in range(6):
     if tsu_p[i] >= sc:
-      return "{}(3飜{}符)".format(base[i], fu[i])
-
+      return fu[i], "{}(3飜{}符)".format(base[i], fu[i])
+  return 0, 0
+  
 def ko_tyoku_4(sc):
   base = [5200, 6400, 7700]
   tsu_p = [scs * 2 for scs in base]
   fu = ["20", "25", "30"]
   for i in range(3):
     if tsu_p[i] >= sc:
-      return "{}(4飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(4飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_tyoku_ov5(sc):
   base = [8000, 12000, 16000, 24000, 32000, 64000]
@@ -248,28 +272,32 @@ def ko_ron_1(sc):
   fu = ["30", "40", "50", "60", "70"]
   for i in range(5):
     if base[i] >= sc:
-      return "{}(1飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(1飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_ron_2(sc):
   base = [1300, 1600, 2000, 2600, 3200, 3900, 4500]
   fu = ["20", "25", "30", "40", "50", "60", "70"]
   for i in range(7):
     if base[i] >= sc:
-      return "{}(2飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(2飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_ron_3(sc):
   base = [2600, 3200, 3900, 5200, 6400, 7700]
   fu = ["20", "25", "30", "40", "50", "60"]
   for i in range(6):
     if base[i] >= sc:
-      return "{}(3飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(3飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_ron_4(sc):
   base = [5200, 6400, 7700]
   fu = ["20", "25", "30"]
   for i in range(3):
     if base[i] >= sc:
-      return "{}(4飜{}符)".format(base[i], fu[i])
+      return fu[i], "{}(4飜{}符)".format(base[i], fu[i])
+  return 0, 0
 
 def ko_ron_ov5(sc):
   base = [8000, 12000, 16000, 24000, 32000, 64000]
@@ -297,18 +325,18 @@ def ron(sc_h, sc_l):
   return x
 
 def display(func, sub, list):
-  if func[0](sub) != None:
-    list.append(func[0](sub))
-  if func[1](sub) != None:
-    if func[0](sub) != "1飜30符":
-      list.append(func[1](sub))
-  if func[2](sub) != None:      
-    if func[1](sub) != "2飜20符":
-      list.append(func[2](sub))
-  if func[3](sub) != None:
-    if func[2](sub) != "3飜20符":
-      list.append(func[3](sub))
-  if func[3](sub) == None:
+  if func[0](sub)[0] != 0:
+    list.append(func[0](sub)[1])
+  if func[1](sub)[0] != 0:
+    if func[0](sub)[0] != "30":
+      list.append(func[1](sub)[1])
+  if func[2](sub)[0] != 0:      
+    if func[1](sub)[0] != "20":
+      list.append(func[2](sub)[1])
+  if func[3](sub)[0] != 0:
+    if func[2](sub)[0] != "20":
+      list.append(func[3](sub)[1])
+  if func[3](sub)[0] == 0:
     list.append(func[4](sub))
 
 def oya():
@@ -340,8 +368,8 @@ k_ty = [ko_tyoku_1, ko_tyoku_2, ko_tyoku_3, ko_tyoku_4, ko_tyoku_ov5]
 k_ro = [ko_ron_1, ko_ron_2, ko_ron_3, ko_ron_4, ko_ron_ov5]
 
 print("""---------------
-MDP ver.2.1
---------------
+MDP ver.2.2
+---------------
 点数: 自分以上の分をスペースで区切って半角入力
 親: 今何着目？
 立直棒: 何本ある？
@@ -364,10 +392,6 @@ while 1:
   oya_ban = int(input("親: "))
   ri_chi = int(input("立直棒: "))
   tsumi = int(input("供託: "))
-  
-  list_ts = []
-  list_ty = []
-  list_ro = []
    
   print()
   
@@ -386,6 +410,9 @@ while 1:
       sub_ts = tsumo(sit[1], sit[2])
       sub_ty = tyoku(sit[1], sit[2])
       sub_ro = ron(sit[1], sit[2])
+      list_ts = []
+      list_ty = []
+      list_ro = []
       
       if oya_ban == 1:
         kaburi() 
@@ -406,6 +433,9 @@ while 1:
       sub_ts = tsumo(sit[1], sit[3])
       sub_ty = tyoku(sit[1], sit[3])
       sub_ro = ron(sit[1], sit[3])
+      list_ts = []
+      list_ty = []
+      list_ro = []
       
       if oya_ban == 1:
         kaburi()
@@ -414,13 +444,16 @@ while 1:
       else:
         notk()     
       output()
-
+      print()
 
       print("2位条件:")
       sub_ts = tsumo(sit[2], sit[3])
       sub_ty = tyoku(sit[2], sit[3])
       sub_ro = ron(sit[2], sit[3])
-
+      list_ts = []
+      list_ty = []
+      list_ro = []
+      
       if oya_ban == 2:
         kaburi()
       elif oya_ban == 3:
@@ -440,6 +473,9 @@ while 1:
       sub_ts = tsumo(sit[1], sit[4])
       sub_ty = tyoku(sit[1], sit[4])
       sub_ro = ron(sit[1], sit[4])
+      list_ts = []
+      list_ty = []
+      list_ro = []
       
       if oya_ban == 1:
         kaburi()      
@@ -448,12 +484,15 @@ while 1:
       else:
         notk()      
       output()
-
+      print()
 
       print("2位条件:")
       sub_ts = tsumo(sit[2], sit[4])
       sub_ty = tyoku(sit[2], sit[4])
       sub_ro = ron(sit[2], sit[4])
+      list_ts = []
+      list_ty = []
+      list_ro = []
       
       if oya_ban == 2:
         kaburi() 
@@ -462,12 +501,15 @@ while 1:
       else:
         notk()        
       output()
-
+      print()
 
       print("3位条件:")
       sub_ts = tsumo(sit[3], sit[4])
       sub_ty = tyoku(sit[3], sit[4])
       sub_ro = ron(sit[3], sit[4])
+      list_ts = []
+      list_ty = []
+      list_ro = []
       
       if oya_ban == 3:
         kaburi()
